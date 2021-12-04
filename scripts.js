@@ -65,7 +65,7 @@ clearButton.addEventListener('click', function(){
     colorButton.classList.remove('active')
     eraseButton.classList.remove('active')
     sketck.innerHTML = ''
-    createGrid()
+    createGrid(current_size)
 })
 
 colorPicker.onchange = (e) => changeCurrentColor(e.target.value);
