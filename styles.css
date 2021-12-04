@@ -60,3 +60,9 @@ button:hover {
     width: 100px;
     height: 50px;
 }
+
+#sizeSlider {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #F0E9D2;
+}

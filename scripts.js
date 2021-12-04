@@ -1,4 +1,10 @@
 
+window.addEventListener("DOMContentLoaded", ()=>{
+
+
+
+
+
 const sketck = document.querySelector('.sketch')
 const colorButton = document.querySelector('#color')
 const eraseButton = document.querySelector('#erase')
@@ -9,6 +15,7 @@ const sizeSlider = document.querySelector('#sizeSlider')
 
 let current_color = '#333333'
 let current_size = 16
+let gridList;
 
 function changeCurrentColor(newColor){
     current_color = newColor
@@ -18,9 +25,12 @@ function changeCurrentSize(newSize) {
     current_size = newSize
 }
 
+
 function updateSizeValue(value) {
     sizeValue.innerHTML = `${value} x ${value}`
   }  
+
+updateSizeValue(sizeSlider.value);
 
 function createGrid(current_size) {   // Create Grid of 16X16
     for (let i = 0; i<current_size; i++) {
@@ -38,6 +48,7 @@ function createGrid(current_size) {   // Create Grid of 16X16
             grid_column.classList.add('grid-column');
             row.appendChild(grid_column);
         }
+    gridList = document.querySelectorAll('.grid-column');
     });
 }
 function changeSize(value) {
@@ -45,9 +56,10 @@ function changeSize(value) {
     updateSizeValue(value)
     sketck.innerHTML = ''
     createGrid(value)
+    eventListen(gridList);
   }
 
-createGrid(current_size)
+createGrid(sizeSlider.value)
 colorButton.addEventListener('click', function(){
     colorButton.classList.toggle('active');
     eraseButton.classList.remove('active')
@@ -65,7 +77,8 @@ clearButton.addEventListener('click', function(){
     colorButton.classList.remove('active')
     eraseButton.classList.remove('active')
     sketck.innerHTML = ''
-    createGrid()
+    createGrid(sizeSlider.value)
+    eventListen(gridList);
 })
 
 colorPicker.onchange = (e) => changeCurrentColor(e.target.value);
@@ -95,14 +108,21 @@ function paintGrid(elem, color) {
 }
 
 
+function eventListen(gridList){
+    gridList.forEach(row => {
+        row.addEventListener('mousedown', event =>{ 
+            if(event.buttons == 1){        
+                window.addEventListener('mouseover', (e) => {
+                    paintGrid(e, current_color)       
+                });
+            }
+        });
+    })
+}
 
-const gridList = document.querySelectorAll('.grid-column')
-gridList.forEach(row => {
-    row.addEventListener('mousedown', event =>{ 
-        if(event.buttons == 1){        
-            window.addEventListener('mouseover', (e) => {
-                paintGrid(e, current_color)       
-            });
-        }
-    });
-})
+eventListen(gridList);
+
+
+
+
+});
