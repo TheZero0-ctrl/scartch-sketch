@@ -77,8 +77,12 @@ clearButton.addEventListener('click', function(){
     colorButton.classList.remove('active')
     eraseButton.classList.remove('active')
     sketck.innerHTML = ''
+<<<<<<< HEAD
     createGrid(sizeSlider.value)
     eventListen(gridList);
+=======
+    createGrid(current_size)
+>>>>>>> a477720628f4fb1f003dc13b2751080cac01c3f3
 })
 
 colorPicker.onchange = (e) => changeCurrentColor(e.target.value);
@@ -120,9 +124,22 @@ function eventListen(gridList){
     })
 }
 
+<<<<<<< HEAD
 eventListen(gridList);
 
 
 
 
 });
+=======
+const gridList = document.querySelectorAll('.grid-column')
+gridList.forEach(row => {
+    row.addEventListener('mousedown', event =>{ 
+        if(event.buttons == 1){        
+            window.addEventListener('mouseover', (e) => {
+                paintGrid(e, current_color)       
+            });
+        }
+    });
+})
+>>>>>>> a477720628f4fb1f003dc13b2751080cac01c3f3
